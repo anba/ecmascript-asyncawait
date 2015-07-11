@@ -70,7 +70,7 @@
       1. If _symbol_ is not one of <emu-nt>NewTarget</emu-nt>, <emu-nt>SuperProperty</emu-nt>, <emu-nt>SuperCall</emu-nt>, <emu-t>super</emu-t>, or <emu-t>this</emu-t>, return *false*.
       2. Let _head_ be CoveredAsyncFunctionHead of |CoverCallExpressionAndAsyncArrowHead|.
       3. If _head_ Contains _symbol_ is *true*, return *true*.
-      4. return |AsyncConciseBody| Contains _symbol_.
+      4. Return |AsyncConciseBody| Contains _symbol_.
     </emu-alg>
     <emu-note>Normally, Contains does not look inside most function forms. However, Contains is used to detect `new.target`, `this`, and `super` usage within an AsyncArrowFunction.</emu-note>
     <p><emu-prodref name="AsyncArrowHead" class="inline"></emu-prodref></p>
@@ -118,7 +118,7 @@
     </emu-alg>
     <p><emu-prodref name="AsyncArrowHead" class="inline" a="1"></emu-prodref></p>
     <emu-alg>
-      1. Return HasInitializer of |ArrowFormalParameters|.
+      1. Return ExpectedArgumentCount of |ArrowFormalParameters|.
     </emu-alg>
   </emu-clause>
 

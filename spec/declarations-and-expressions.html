@@ -114,6 +114,7 @@
 
   <emu-clause id="async-decls-exprs-EvaluateBody">
     <h1>Runtime Semantics: EvaluateBody</h1>
+    <p>With parameter _functionObject_.</p>
     <p>
       <emu-prodref name="AsyncFunctionBody" a="1" class="inline"></emu-prodref><br>
     </p>
@@ -128,12 +129,34 @@
     <h1>Runtime Semantics: Evaluation</h1>
     <p><emu-prodref name="AsyncFunctionDeclaration" a="1" class="inline"></emu-prodref></p>
     <emu-alg>
-      1. Return.
+      1. Return NormalCompletion(~empty~).
     </emu-alg>
 
     <p><emu-prodref name="AsyncFunctionDeclaration" a="2" class="inline"></emu-prodref></p>
     <emu-alg>
-      1. Return.
+      1. Return NormalCompletion(~empty~).
+    </emu-alg>
+
+    <p><emu-prodref name="AsyncFunctionExpression" a="1" class="inline"></emu-prodref></p>
+    <emu-alg>
+      1. If the function code for |AsyncFunctionExpression| is strict mode code, let _strict_ be *true*. Otherwise let _strict_ be *false*.
+      1. Let _scope_ be the LexicalEnvironment of the running execution context.
+      1. Let _closure_ be AsyncFunctionCreate(~Normal~, |FormalParameters|, |AsyncFunctionBody|, _scope_, _strict_).
+      1. Return NormalCompletion(_closure_).
+    </emu-alg>
+
+    <p><emu-prodref name="AsyncFunctionExpression" a="2" class="inline"></emu-prodref></p>
+    <emu-alg>
+      1. If the function code for |AsyncFunctionExpression| is strict mode code, let _strict_ be *true*. Otherwise let _strict_ be *false*.
+      1. Let _runningContext_ be the running execution context's Lexical Environment.
+      1. Let _funcEnv_ be NewDeclarativeEnvironment(_runningContext_).
+      1. Let _envRec_ be _funcEnv_'s EnvironmentRecord.
+      1. Let _name_ be StringValue of |BindingIdentifier|.
+      1. Perform _envRec_.CreateImmutableBinding( _name_). <!-- FIXME: Remove the space before _name_ without breaking the result html. -->
+      1. Let _closure_ be AsyncFunctionCreate(~Normal~, |FormalParameters|, |AsyncFunctionBody|, _funcEnv_, _strict_).
+      1. Perform SetFunctionName(_closure_, _name_).
+      1. Perform _envRec_.InitializeBinding( _name_, _closure_).
+      1. Return NormalCompletion(_closure_).
     </emu-alg>
 
     <p><emu-prodref name="AwaitExpression" a="1" class="inline"></emu-prodref></p>
